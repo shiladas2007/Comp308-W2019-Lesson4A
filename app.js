@@ -3,6 +3,16 @@ let express = require("express");
 let path = require("path");
 let cookieParser = require("cookie-parser");
 let logger = require("morgan");
+//db setup
+let mongoose=require('mongoose');
+let DB=require('./config/db');
+//pint mongoose to the db uri
+mongoose.connect(DB.URI);
+let mongoDB=mongoose.connection;
+mongoDB.on('error',console.error.bind(console,'connection error!'));
+mongoDB.once('open',()=>{
+  console.log("Connected to MongoDB....");
+});
 
 let indexRouter = require("./routes/index");
 let usersRouter = require("./routes/users");
